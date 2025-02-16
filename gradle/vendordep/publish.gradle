@@ -13,7 +13,8 @@ def vendordepFile = file("$outputsFolder/${project.property("vendordepPublish.ve
 // Repo artifact configuration
 def artifactGroupId = project.property("vendordepPublish.artifactGroupId")
 def baseArtifactId = project.property("vendordepPublish.baseArtifactId")
-def javaBaseName = "_GROUP_${project.property("vendordepPublish.baseNameGroupId")}_ID_${baseArtifactId}-java_CLS"
+def baseNameGroupId = project.property("vendordepPublish.artifactGroupId").replace(".", "_")
+def javaBaseName = "_GROUP_${baseNameGroupId}_ID_${baseArtifactId}-java_CLS"
 
 task outputVersions() {
 	description = 'Prints the versions of WPILib to a file for use by the downstream packaging project.'
