@@ -52,4 +52,4 @@ shadowJar {
 }
 
 apply from: 'javadoc.gradle'
-apply from: 'publish.gradle'
+apply from: 'gradle/vendordep/publish.gradle'

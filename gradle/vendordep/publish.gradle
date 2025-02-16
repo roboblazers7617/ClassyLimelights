@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 
 ext.licenseFile = files("$rootDir/LICENSE.md")
 
+// Vendordep configuration
 def pubVersion = System.getenv("releaseVersion") ?: "test"
 def repoUrl = System.getenv("mavenRepo") ?: "$rootDir/repos"
 def releasesRepoUrl = "$repoUrl/${project.property("vendordepPublish.releasesRepoName")}"
@@ -9,8 +10,13 @@ def outputsFolder = file("$buildDir/outputs")
 def versionFile = file("$outputsFolder/version.txt")
 def vendordepFile = file("$outputsFolder/${project.property("vendordepPublish.vendordepFileName")}")
 
+// Repo artifact configuration
+def artifactGroupId = project.property("vendordepPublish.artifactGroupId")
+def baseArtifactId = project.property("vendordepPublish.baseArtifactId")
+def javaBaseName = "_GROUP_${project.property("vendordepPublish.baseNameGroupId")}_ID_${baseArtifactId}-java_CLS"
+
 task outputVersions() {
-	description = 'Prints the versions of wpilib to a file for use by the downstream packaging project'
+	description = 'Prints the versions of WPILib to a file for use by the downstream packaging project.'
 	group = 'Build'
 	outputs.files(versionFile)
 
@@ -23,8 +29,6 @@ task outputVersions() {
 		versionFile.write pubVersion
 	}
 }
-
-task libraryBuild() {}
 
 build.dependsOn outputVersions
 
@@ -42,10 +46,6 @@ ext.addTaskToCopyAllOutputs = { task ->
 	copyAllOutputs.inputs.file task.archiveFile
 	copyAllOutputs.from task.archiveFile
 }
-
-def artifactGroupId = project.property("vendordepPublish.artifactGroupId")
-def baseArtifactId = project.property("vendordepPublish.baseArtifactId")
-def javaBaseName = "_GROUP_io_github_roboblazers7617_ID_${baseArtifactId}-java_CLS"
 
 task sourcesJar(type: Jar, dependsOn: classes) {
 	archiveClassifier = 'sources'
@@ -80,7 +80,7 @@ task outputJavadocJar(type: Jar, dependsOn: javadoc) {
 // Apply template variables from the vendordep file.
 // Replaces ${VARIABLE} with VARIABLE: value in expand()
 task vendordepJson() {
-    description = 'Builds the vendordep json file.'
+    description = 'Builds the vendordep JSON file.'
     group = 'Build'
     outputs.files(vendordepFile)
 
@@ -108,8 +108,6 @@ addTaskToCopyAllOutputs(outputJar)
 build.dependsOn outputSourcesJar
 build.dependsOn outputJavadocJar
 build.dependsOn outputJar
-
-libraryBuild.dependsOn build
 
 publishing {
 	repositories {
