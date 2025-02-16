@@ -1,0 +1,34 @@
+name: Trigger Maven update
+
+on: push
+
+jobs:
+  update-maven:
+    runs-on: ubuntu-latest
+
+    # Only deploy on tag
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Generate an authentication token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.BLAZER_BOT_APP_ID }}
+          private-key: ${{ secrets.BLAZER_BOT_PRIVATE_KEY }}
+          # Set the owner, so the token can be used in all repositories
+          owner: ${{ github.repository_owner }}
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          repository: roboblazers7617/maven-repo
+          event-type: publish_update
+          client-payload: |
+            {
+              "ref": "${{ github.ref }}",
+              "sha": "${{ github.sha }}",
+              "libraryName": "ClassyLimelights",
+              "releaseVersion": "${{ github.ref_name }}"
+            }
