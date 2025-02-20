@@ -36,11 +36,11 @@ jobs:
           path: ./build/docs/
 
   build-java:
-    uses: CoffeeCoder1/VendorTools/ci/workflows/build-java.yml
+    uses: CoffeeCoder1/VendorTools/ci/workflows/build-java.yml@3faf9865c28314f285d867af6e91a15b03c80cbd
 
   publish:
     needs: [build-java]
-    uses: CoffeeCoder1/VendorTools/ci/workflows/publish.yml
+    uses: CoffeeCoder1/VendorTools/ci/workflows/publish.yml@3faf9865c28314f285d867af6e91a15b03c80cbd
 
   combine:
     needs: [build-javadoc, publish]
