@@ -1,9 +1,13 @@
-name: Trigger Maven update
+name: Publish
 
 on: push
 
 jobs:
+  build-java:
+    uses: CoffeeCoder1/VendorTools/.github/workflows/build-java.yml@3a85fa237c23f822b9931fc8cdcbbfa6385dd970
+
   update-maven:
+    needs: [build-java]
     runs-on: ubuntu-latest
 
     # Only deploy on tag
@@ -19,16 +23,9 @@ jobs:
           # Set the owner, so the token can be used in all repositories
           owner: ${{ github.repository_owner }}
 
-      - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v3
+      - name: Trigger update
+        uses: CoffeeCoder1/VendorTools/.github/actions/trigger-maven-update
         with:
-          token: ${{ steps.app-token.outputs.token }}
-          repository: roboblazers7617/maven-repo
-          event-type: publish_update
-          client-payload: |
-            {
-              "ref": "${{ github.ref }}",
-              "sha": "${{ github.sha }}",
-              "libraryName": "ClassyLimelights",
-              "releaseVersion": "${{ github.ref_name }}"
-            }
+          github-token: ${{ steps.app-token.outputs.token }}
+          repository-name: roboblazers7617/maven-repo
+          maven-name: limelight

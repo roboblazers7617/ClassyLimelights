@@ -10,8 +10,8 @@
 	"jsonUrl": "https://roboblazers7617.github.io/ClassyLimelights/ClassyLimelights.json",
 	"javaDependencies": [
 		{
-			"groupId": "io.github.roboblazers7617.limelight",
-			"artifactId": "ClassyLimelights-java",
+			"groupId": "${groupId}",
+			"artifactId": "${artifactId}-java",
 			"version": "${version}"
 		}
 	],

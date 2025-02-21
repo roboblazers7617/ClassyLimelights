@@ -35,18 +35,11 @@ jobs:
           # A file, directory or wildcard pattern that describes what to upload
           path: ./build/docs/
 
-  build-java:
-    uses: CoffeeCoder1/VendorTools/.github/workflows/build-java.yml@3a85fa237c23f822b9931fc8cdcbbfa6385dd970
-
-  publish:
-    needs: [build-java]
-    uses: CoffeeCoder1/VendorTools/.github/workflows/publish.yml@3a85fa237c23f822b9931fc8cdcbbfa6385dd970
-
   build-json:
     uses: CoffeeCoder1/VendorTools/.github/workflows/build-json.yml@3a85fa237c23f822b9931fc8cdcbbfa6385dd970
 
   combine:
-    needs: [build-javadoc, build-json, publish]
+    needs: [build-javadoc, build-json]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
