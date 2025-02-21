@@ -2,7 +2,7 @@ pluginManagement {
 	repositories {
 		mavenLocal()
 		maven {
-			url = "https://raw.githubusercontent.com/roboblazers7617/maven-repo/main/repos/vendortools"
+			url = uri("https://raw.githubusercontent.com/roboblazers7617/maven-repo/main/repos/vendortools")
 		}
 		gradlePluginPortal()
 		mavenCentral()
