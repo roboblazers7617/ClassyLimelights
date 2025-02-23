@@ -7,6 +7,12 @@ plugins {
 	id 'net.apollofops.first.VendorTools' version "2025.0.3"
 }
 
+repositories {
+	maven {
+		url = uri("https://broncbotz3481.github.io/YALL/vendordep/repo")
+	}
+}
+
 wpilibTools.deps.wpilibVersion = wpi.versions.wpilibVersion.get()
 
 def nativeConfigName = 'wpilibNatives'
@@ -29,6 +35,7 @@ dependencies {
 	implementation wpilibTools.deps.wpilibJava("wpilibj")
 	implementation wpilibTools.deps.wpilibJava("wpiutil")
 	implementation wpilibTools.deps.wpilibJava("wpimath")
+	implementation wpilibTools.deps.wpilibJava("wpiunits")
 	implementation wpilibTools.deps.wpilibJava("wpinet")
 	implementation wpilibTools.deps.wpilibJava("ntcore")
 	implementation wpilibTools.deps.wpilibJava("cscore")
@@ -42,7 +49,9 @@ dependencies {
 	implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: wpi.versions.jacksonVersion.get()
 
 	implementation group: "org.ejml", name: "ejml-simple", version: wpi.versions.ejmlVersion.get()
-	implementation group: "us.hebi.quickbuf", name: "quickbuf-runtime", version: wpi.versions.quickbufVersion.get();
+	implementation group: "us.hebi.quickbuf", name: "quickbuf-runtime", version: wpi.versions.quickbufVersion.get()
+
+	implementation group: "yall", name: "yall-java", version: "2025.4.0";
 }
 
 shadowJar {
