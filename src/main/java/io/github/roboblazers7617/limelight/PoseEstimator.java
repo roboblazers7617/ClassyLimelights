@@ -6,7 +6,6 @@ import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
 import io.github.roboblazers7617.limelight.targets.RawFiducialTarget;
-import limelight.networktables.LimelightPoseEstimator.BotPose;
 
 public class PoseEstimator {
 	private final NetworkTable networkTable;
@@ -181,7 +180,7 @@ public class PoseEstimator {
 		private final boolean isMegaTag2;
 
 		/**
-		 * Create {@link BotPose} enum with given entry names and megatag2 state.
+		 * Create {@link PoseEstimators} enum with given entry names and megatag2 state.
 		 *
 		 * @param entry
 		 *            Bot Pose entry name for {@link Limelight}
