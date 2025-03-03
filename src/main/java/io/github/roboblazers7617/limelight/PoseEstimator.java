@@ -16,7 +16,7 @@ public class PoseEstimator {
 	 */
 	private final NetworkTable networkTable;
 	/**
-	 * The pose estimators to use.
+	 * The pose estimator to use.
 	 */
 	private final PoseEstimators poseEstimator;
 	/**
@@ -30,7 +30,7 @@ public class PoseEstimator {
 	 * @param limelight
 	 *            The {@link Limelight} to get data from.
 	 * @param poseEstimator
-	 *            The {@link PoseEstimators} to use.
+	 *            The {@link PoseEstimators pose estimator} to use.
 	 */
 	protected PoseEstimator(Limelight limelight, PoseEstimators poseEstimator) {
 		networkTable = limelight.getNetworkTable();
@@ -38,15 +38,29 @@ public class PoseEstimator {
 		poseSubscriber = networkTable.getDoubleArrayTopic(poseEstimator.getEntry()).subscribe(new double[0]);
 	}
 
+	/**
+	 * Gets the pose estimates for this PoseEstimator.
+	 *
+	 * @return
+	 *         Array of pose estimates from this PoseEstimator.
+	 */
 	public PoseEstimate[] getBotPoseEstimates() {
 		return Arrays.stream(poseSubscriber.readQueue())
 				.map((poseEstimateArray) -> {
-					return genPoseEstimateFromNT(poseEstimateArray);
+					return generatePoseEstimateFromNT(poseEstimateArray);
 				})
 				.toArray(PoseEstimate[]::new);
 	}
 
-	private PoseEstimate genPoseEstimateFromNT(TimestampedDoubleArray poseTimestamped) {
+	/**
+	 * Parses a pose estimate from NetworkTables data.
+	 *
+	 * @param poseTimestamped
+	 *            The raw pose data from NetworkTables.
+	 * @return
+	 *         The resulting PoseEstimate.
+	 */
+	private PoseEstimate generatePoseEstimateFromNT(TimestampedDoubleArray poseTimestamped) {
 		double[] poseArray = poseTimestamped.value;
 		long timestamp = poseTimestamped.timestamp;
 
@@ -165,12 +179,20 @@ public class PoseEstimator {
 		}
 	}
 
+	/**
+	 * Returns whether or not the given pose estimate is valid.
+	 *
+	 * @param pose
+	 *            Pose estimate to check.
+	 * @return
+	 *         Is this pose estimate valid?
+	 */
 	public Boolean validPoseEstimate(PoseEstimate pose) {
 		return pose != null && pose.rawFiducials != null && pose.rawFiducials.length != 0;
 	}
 
 	/**
-	 * PoseEstimators enum for easier decoding.
+	 * The different pose estimators available to query.
 	 */
 	public enum PoseEstimators {
 		/**
@@ -195,27 +217,39 @@ public class PoseEstimator {
 		 */
 		private final String entry;
 		/**
-		 * Is megatag2 pose estimator?
+		 * Is this a MegaTag2 pose estimator?
 		 */
 		private final boolean isMegaTag2;
 
 		/**
-		 * Create {@link PoseEstimators} enum with given entry names and megatag2 state.
+		 * Creates an enum value with the given entry names and MegaTag2 state.
 		 *
 		 * @param entry
 		 *            Bot Pose entry name for {@link Limelight}
 		 * @param megatag2
-		 *            MegaTag2 reading.
+		 *            Is this a MegaTag2 pose estimator?
 		 */
 		PoseEstimators(String entry, boolean isMegaTag2) {
 			this.entry = entry;
 			this.isMegaTag2 = isMegaTag2;
 		}
 
+		/**
+		 * Gets the {@link #entry} for this pose estimator.
+		 *
+		 * @return
+		 *         {@link #entry} for this pose estimator.
+		 */
 		public String getEntry() {
 			return entry;
 		}
 
+		/**
+		 * Gets the {@link #isMegaTag2} state for this pose estimator.
+		 *
+		 * @return
+		 *         {@link #isMegaTag2} state for this pose estimator.
+		 */
 		public Boolean isMegaTag2() {
 			return isMegaTag2;
 		}
