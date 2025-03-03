@@ -9,22 +9,22 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import java.util.List;
 
 /**
- * Settings class to apply configurable options to the {@link Limelight}
- * Sourced from Yet Another Limelight Lib(YALL)
+ * Settings class to apply configurable options to the {@link Limelight}.
  * <p>
  * These settings are sent from the roboRIO back to the Limelight to affect the LL.
  * <p>
  * One or more chains of ".withXXXX" methods can change the LL settings. The action of each ".withXXXX" method is
- * essentially immediate, however, some slight delay is possible and the {@link #save} method will immediately save any
+ * essentially immediate, however, some slight delay is possible and the {@link #save()} method will immediately save any
  * settings that had not yet been saved.
- * <p>
  * <p>
  * Initially, at constructor time, settings are fetched from the LL, however, there is no provision to programatically
  * access those values - they are dead, useless.
+ * <p>
+ * Sourced from Yet Another Limelight Lib (YALL).
  */
 public class LimelightSettings {
 	/**
-	 * {@link NetworkTable} for the {@link Limelight}
+	 * {@link NetworkTable} for the {@link Limelight}.
 	 */
 	private NetworkTable limelightTable;
 	/**
@@ -32,59 +32,74 @@ public class LimelightSettings {
 	 */
 	private Limelight limelight;
 	/**
-	 * LED Mode for the limelight. 0 = Pipeline Control, 1 = Force Off, 2 = Force Blink, 3 = Force On
+	 * LED Mode entry for the Limelight.
+	 *
+	 * @apiNote
+	 *          0 = Pipeline Control, 1 = Force Off, 2 = Force Blink, 3 = Force On
 	 */
 	private NetworkTableEntry ledMode;
 	/**
-	 * {@link Limelight} PipelineIndex to use.
+	 * PipelineIndex entry for the Limelight.
 	 */
 	private NetworkTableEntry pipelineIndex;
 	/**
-	 * Priority TagID for the limelight.
+	 * Priority TagID entry for the Limelight.
 	 */
 	private NetworkTableEntry priorityTagID;
 	/**
-	 * Stream mode, 0 = Side-by-side, 1 = Picture-in-Picture (second in corner), 2 = Picture-in-Picture (primary in
-	 * corner)
+	 * Stream mode.
+	 *
+	 * @apiNote
+	 *          0 = Side-by-side, 1 = Picture-in-Picture (second in corner), 2 = Picture-in-Picture (primary in corner)
 	 */
 	private NetworkTableEntry streamMode;
 	/**
-	 * Crop window for the camera. The crop window in the UI must be completely open. DoubleArray
-	 * [cropXMin,cropXMax,cropYMin,cropYMax] values between -1 and 1
+	 * Crop window entry for the camera. The crop window in the UI must be completely open.
+	 *
+	 * @apiNote
+	 *          DoubleArray [cropXMin,cropXMax,cropYMin,cropYMax] values between -1 and 1.
 	 */
 	private DoubleArrayEntry cropWindow;
 	/**
-	 * Imu Mode for the Limelight 4.
+	 * Imu Mode entry for the Limelight 4.
 	 */
 	private NetworkTableEntry imuMode;
 	/**
-	 * Imu assist alpha/strengh while in the Imu assist modes using a complementary filter. Default is 0.001.
+	 * Imu assist alpha/strengh entry while in the Imu assist modes using a complementary filter.
+	 *
+	 * @apiNote
+	 *          Default is 0.001.
 	 */
 	private NetworkTableEntry imuAssistAlpha;
 	/**
-	 * The number of frames to skip between processing the contents of a frame.
+	 * Entry for the number of frames to skip between processing the contents of a frame.
 	 */
 	private NetworkTableEntry processFrameFrequency;
 	/**
-	 * Sets 3d offset point for easy 3d targeting Sets the 3D point-of-interest offset for the current fiducial pipeline.
+	 * Entry that sets 3d offset point for easy 3d targeting Sets the 3D point-of-interest offset for the current fiducial pipeline.
 	 * <p>
 	 * https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking
-	 * <p>
-	 * DoubleArray [offsetX(meters), offsetY(meters), offsetZ(meters)]
+	 *
+	 * @apiNote
+	 *          DoubleArray [offsetX(meters), offsetY(meters), offsetZ(meters)].
 	 */
 	private DoubleArrayEntry fiducial3DOffset;
 	/**
-	 * DoubleArray of valid apriltag id's to track.
+	 * DoubleArray entry of valid AprilTag ID's to track.
 	 */
 	private DoubleArrayEntry fiducialIDFiltersOverride;
 	/**
-	 * Downscaling factor for AprilTag detection. Increasing downscale can improve performance at the cost of potentially
-	 * reduced detection range. Valid values ar [0 (pipeline control), 1 (no downscale), 2, 3, 4]
+	 * Entry for the downscaling factor for AprilTag detection. Increasing downscale can improve performance at the cost of potentially reduced detection range.
+	 *
+	 * @apiNote
+	 *          Valid values are [0 (pipeline control), 1 (no downscale), 2, 3, 4].
 	 */
 	private NetworkTableEntry downscale;
 	/**
-	 * Camera pose relative to the robot. DoubleArray [forward(meters), side(meters), up(meters), roll(degrees),
-	 * pitch(degrees), yaw(degrees)]
+	 * Camera pose entry relative to the robot.
+	 *
+	 * @apiNote
+	 *          DoubleArray [forward(meters), side(meters), up(meters), roll(degrees), pitch(degrees), yaw(degrees)]
 	 */
 	private DoubleArrayEntry cameraToRobot;
 
@@ -113,13 +128,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the {@link Limelight} {@link LEDMode}.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #ledMode LED mode}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param mode
-	 *            {@link LEDMode} enum
-	 * @return {@link LimelightSettings} for chaining.
+	 *            LED mode to set.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withLimelightLEDMode(LEDMode mode) {
 		ledMode.setNumber(mode.ordinal());
@@ -127,13 +143,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the current pipeline index for the {@link Limelight}
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #pipelineIndex current pipeline index}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param index
 	 *            Pipeline index to use.
-	 * @return {@link LimelightSettings}
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withPipelineIndex(int index) {
 		pipelineIndex.setNumber(index);
@@ -141,13 +158,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the Priority Tag ID for {@link Limelight}
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #priorityTagID Priority Tag ID}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param aprilTagId
 	 *            AprilTag ID to set as a priority.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withPriorityTagId(int aprilTagId) {
 		priorityTagID.setNumber(aprilTagId);
@@ -155,13 +173,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the Stream mode based on the {@link StreamMode} enum
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #streamMode Stream mode}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param mode
-	 *            {@link StreamMode} to use.
-	 * @return {@link LimelightSettings} for chaining.
+	 *            Stream mode to use.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withStreamMode(StreamMode mode) {
 		streamMode.setNumber(mode.ordinal());
@@ -170,9 +189,9 @@ public class LimelightSettings {
 
 	/**
 	 * Sets the crop window for the camera. The crop window in the UI must be completely open.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param minX
 	 *            Minimum X value (-1 to 1)
 	 * @param maxX
@@ -181,7 +200,8 @@ public class LimelightSettings {
 	 *            Minimum Y value (-1 to 1)
 	 * @param maxY
 	 *            Maximum Y value (-1 to 1)
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withCropWindow(double minX, double maxX, double minY, double maxY) {
 		cropWindow.set(new double[] { minX, maxX, minY, maxY });
@@ -189,13 +209,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the IMU Mode based on the {@link ImuMode} enum.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #imuMode IMU Mode}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param mode
 	 *            {@link ImuMode} to use.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withImuMode(ImuMode mode) {
 		imuMode.setNumber(mode.ordinal());
@@ -203,13 +224,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the IMU's alpha value for its complementary filter while in one of the {@link ImuMode}'s assist modes.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #imuAssistAlpha IMU's alpha value} for its complementary filter while in one of the {@link ImuMode}'s assist modes.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param alpha
 	 *            Alpha value to set for the complementary filter. Default of 0.001.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withImuAssistAlpha(double alpha) {
 		imuAssistAlpha.setDouble(alpha);
@@ -217,13 +239,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Sets the number of frames to skip between processing the contents of a frame.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Sets the {@link #processFrameFrequency number of frames to skip} between processing the contents of a frame.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param skippedFrames
 	 *            Number of frames to skip in between processing camera data.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withProcessedFrameFrequency(int skippedFrames) {
 		processFrameFrequency.setNumber(skippedFrames);
@@ -231,15 +254,16 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Sets the downscaling factor for AprilTag detection. Increasing downscale can improve performance at the cost of
+	 * Sets the {@link #downscale downscaling factor} for AprilTag detection. Increasing downscale can improve performance at the cost of
 	 * potentially reduced detection range.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param downscalingOverride
 	 *            Downscale factor. Valid values: 1.0 (no downscale), 1.5, 2.0, 3.0, 4.0. Set to 0 for
 	 *            pipeline control.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withFiducialDownscalingOverride(DownscalingOverride downscalingOverride) {
 		downscale.setDouble(downscalingOverride.ordinal());
@@ -247,15 +271,16 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the offset from the AprilTag that is of interest. More information here. <a
+	 * Set the {@link #fiducial3DOffset offset} from the AprilTag that is of interest. More information here. <a
 	 * href="https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking">Docs
 	 * page</a>
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param offset
 	 *            {@link Translation3d} offset.
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withAprilTagOffset(Translation3d offset) {
 		fiducial3DOffset.set(JsonUtilities.translation3dToArray(offset));
@@ -263,13 +288,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the {@link Limelight} AprilTagID filter/override of which to track.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #fiducialIDFiltersOverride AprilTagID filter/override} of which to track.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param idFilter
 	 *            Array of AprilTag ID's to track
-	 * @return {@link LimelightSettings} for chaining.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withArilTagIdFilter(List<Double> idFilter) {
 		fiducialIDFiltersOverride.set(idFilter.stream().mapToDouble(Double::doubleValue).toArray());
@@ -277,14 +303,14 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the {@link Limelight} offset.
-	 * <p>
-	 * This method changes the Limelight - normally immediately.
+	 * Set the {@link #cameraToRobot camera position offset}.
 	 *
+	 * @apiNote
+	 *          This method changes the Limelight - normally immediately.
 	 * @param offset
-	 *            {@link Pose3d} of the {@link Limelight} with the {@link edu.wpi.first.math.geometry.Rotation3d} set
-	 *            in Meters.
-	 * @return {@link LimelightSettings} for chaining.
+	 *            {@link Pose3d} of the {@link Limelight} with the {@link edu.wpi.first.math.geometry.Rotation3d} set in Meters.
+	 * @return
+	 *         This object for method chaining.
 	 */
 	public LimelightSettings withCameraOffset(Pose3d offset) {
 		cameraToRobot.set(JsonUtilities.pose3dToArray(offset));
@@ -293,11 +319,12 @@ public class LimelightSettings {
 
 	/**
 	 * Push any pending changes to the {@link NetworkTable} instance immediately.
-	 * <p>
-	 * This method changes the Limelight immediately.
-	 * <p>
-	 * Most setting changes are done essentially immediately and this method
-	 * isn't needed but does no harm to assure changes.
+	 * 
+	 * @apiNote
+	 *          This method changes the Limelight immediately.
+	 * @apiNote
+	 *          Most setting changes are done essentially immediately and this method
+	 *          isn't needed but does no harm to assure changes.
 	 */
 	public void save() {
 		NetworkTableInstance.getDefault().flush();

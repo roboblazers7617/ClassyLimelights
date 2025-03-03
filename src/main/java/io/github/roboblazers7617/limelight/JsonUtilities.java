@@ -8,7 +8,18 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 
+/**
+ * Utilities for working with Limelight JSON outputs.
+ */
 public class JsonUtilities {
+	/**
+	 * Sanitizes a Limelight hostname.
+	 *
+	 * @param name
+	 *            The name to sanitize.
+	 * @return
+	 *         The provided name, or "limelight" if invalid.
+	 */
 	static final String sanitizeName(String name) {
 		if (name == "" || name == null) {
 			return "limelight";
@@ -21,7 +32,8 @@ public class JsonUtilities {
 	 *
 	 * @param translation
 	 *            {@link Translation3d} to convert.
-	 * @return Double array containing [x, y, z]
+	 * @return
+	 *         Double array containing [x, y, z].
 	 */
 	public static double[] translation3dToArray(Translation3d translation) {
 		return new double[] { translation.getX(), translation.getY(), translation.getZ() };
@@ -32,8 +44,9 @@ public class JsonUtilities {
 	 * Array format: [x, y, z, roll, pitch, yaw] where angles are in degrees.
 	 *
 	 * @param inData
-	 *            Array containing pose data [x, y, z, roll, pitch, yaw]
-	 * @return Pose3d object representing the pose, or empty Pose3d if invalid data
+	 *            Array containing pose data [x, y, z, roll, pitch, yaw].
+	 * @return
+	 *         Pose3d object representing the pose, or empty Pose3d if invalid data.
 	 */
 	public static Pose3d toPose3D(double[] inData) {
 		if (inData.length < 6) {
@@ -49,8 +62,9 @@ public class JsonUtilities {
 	 * Array format: [x, y, z, roll, pitch, yaw] where angles are in degrees.
 	 *
 	 * @param inData
-	 *            Array containing pose data [x, y, z, roll, pitch, yaw]
-	 * @return Pose2d object representing the pose, or empty Pose2d if invalid data
+	 *            Array containing pose data [x, y, z, roll, pitch, yaw].
+	 * @return
+	 *         Pose2d object representing the pose, or empty Pose2d if invalid data.
 	 */
 	public static Pose2d toPose2D(double[] inData) {
 		if (inData.length < 6) {
@@ -67,8 +81,9 @@ public class JsonUtilities {
 	 * Translation components are in meters, rotation components are in degrees.
 	 *
 	 * @param pose
-	 *            The Pose3d object to convert
-	 * @return A 6-element array containing [x, y, z, roll, pitch, yaw]
+	 *            The Pose3d object to convert.
+	 * @return
+	 *         A 6-element array containing [x, y, z, roll, pitch, yaw].
 	 */
 	public static double[] pose3dToArray(Pose3d pose) {
 		double[] result = new double[6];
@@ -84,11 +99,13 @@ public class JsonUtilities {
 	/**
 	 * Converts a Pose2d object to an array of doubles in the format [x, y, z, roll, pitch, yaw].
 	 * Translation components are in meters, rotation components are in degrees.
-	 * Note: z, roll, and pitch will be 0 since Pose2d only contains x, y, and yaw.
 	 *
 	 * @param pose
 	 *            The Pose2d object to convert
-	 * @return A 6-element array containing [x, y, 0, 0, 0, yaw]
+	 * @return
+	 *         A 6-element array containing [x, y, 0, 0, 0, yaw].
+	 * @apiNote
+	 *          z, roll, and pitch will be 0 since Pose2d only contains x, y, and yaw.
 	 */
 	public static double[] pose2dToArray(Pose2d pose) {
 		double[] result = new double[6];

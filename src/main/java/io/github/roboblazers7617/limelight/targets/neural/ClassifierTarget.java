@@ -30,5 +30,8 @@ public class ClassifierTarget {
 	@JsonProperty("typ")
 	public double ty_pixels;
 
+	/**
+	 * Creates a new ClassifierTarget with blank values.
+	 */
 	public ClassifierTarget() {}
 }

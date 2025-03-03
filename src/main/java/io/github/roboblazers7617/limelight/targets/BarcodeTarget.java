@@ -3,19 +3,22 @@ package io.github.roboblazers7617.limelight.targets;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents a Barcode Target Result extracted from JSON Output
+ * Represents a Barcode Target Result extracted from JSON Output.
  */
 public class BarcodeTarget {
+	/**
+	 * Creates a new BarcodeTarget with blank values.
+	 */
 	public BarcodeTarget() {}
 
 	/**
-	 * Barcode family type (e.g. "QR", "DataMatrix", etc.)
+	 * Barcode family type (e.g. "QR", "DataMatrix", etc.).
 	 */
 	@JsonProperty("fam")
 	public String family;
 
 	/**
-	 * Gets the decoded data content of the barcode
+	 * Gets the decoded data content of the barcode.
 	 */
 	@JsonProperty("data")
 	public String data;
@@ -44,6 +47,12 @@ public class BarcodeTarget {
 	@JsonProperty("pts")
 	public double[][] corners;
 
+	/**
+	 * Gets the {@link #family} of this BarcodeTarget.
+	 *
+	 * @return
+	 *         {@link #family} string of this BarcodeTarget.
+	 */
 	public String getFamily() {
 		return family;
 	}

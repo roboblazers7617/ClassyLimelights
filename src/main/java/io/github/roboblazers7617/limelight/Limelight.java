@@ -14,13 +14,28 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import io.github.roboblazers7617.limelight.PoseEstimator.PoseEstimators;
 
+/**
+ * An object that represents a physical Limelight.
+ */
 public class Limelight {
+	/**
+	 * The hostname of the Limelight.
+	 */
 	public final String name;
+	/**
+	 * The {@link NetworkTable} used by this Limelight.
+	 */
 	public final NetworkTable networkTable;
 	public final PipelineDataCollator dataCollator;
 	public final LimelightSettings settings;
 	private final DoubleArrayEntry robotOrientationEntry;
 
+	/**
+	 * Creates a new Limelight.
+	 *
+	 * @param name
+	 *            The hostname of the Limelight.
+	 */
 	public Limelight(String name) {
 		this.name = JsonUtilities.sanitizeName(name);
 
@@ -31,15 +46,37 @@ public class Limelight {
 		robotOrientationEntry = networkTable.getDoubleArrayTopic("robot_orientation_set").getEntry(new double[0]);
 	}
 
+	/**
+	 * Sets the pipeline's robot orientation input with the given rotation.
+	 *
+	 * @param rotation
+	 *            The robot rotation to set.
+	 */
 	public void setRobotOrientation(Rotation3d rotation) {
 		robotOrientationEntry.set(new double[] { rotation.getMeasureZ().in(Degrees), 0.0, rotation.getMeasureY().in(Degrees), 0, rotation.getMeasureX().in(Degrees), 0 });
 		networkTable.getInstance().flush();
 	}
 
+	/**
+	 * Creates a new {@link PoseEstimator} for this Limelight.
+	 *
+	 * @param estimator
+	 *            The {@link PoseEstimators} to use.
+	 * @return
+	 *         The created {@link PoseEstimator}.
+	 */
 	public PoseEstimator makePoseEstimator(PoseEstimators estimator) {
 		return new PoseEstimator(this, estimator);
 	}
 
+	/**
+	 * Gets a URL for the given request to this Limelight.
+	 *
+	 * @param request
+	 *            The request string to use.
+	 * @return
+	 *         The URL for the request, or null if invalid.
+	 */
 	public URL getLimelightURLString(String request) {
 		String urlString = "http://" + name + ".local:5807/" + request;
 		URL url;
@@ -53,15 +90,27 @@ public class Limelight {
 	}
 
 	/**
-	 * Asynchronously take snapshot.
+	 * Asynchronously takes a snapshot.
+	 *
+	 * @param snapshotName
+	 *            The name to give to the snapshot.
+	 * @see #snapshotSynchronous(String)
 	 */
 	public void snapshot(String snapshotName) {
 		CompletableFuture.supplyAsync(() -> {
-			return SYNCH_TAKESNAPSHOT(snapshotName);
+			return snapshotSynchronous(snapshotName);
 		});
 	}
 
-	private boolean SYNCH_TAKESNAPSHOT(String snapshotName) {
+	/**
+	 * Synchronously takes a snapshot.
+	 *
+	 * @param snapshotName
+	 *            The name to give to the snapshot.
+	 * @return
+	 *         Was the snapshot successful?
+	 */
+	private boolean snapshotSynchronous(String snapshotName) {
 		URL url = getLimelightURLString("capturesnapshot");
 		try {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();

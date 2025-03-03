@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 import io.github.roboblazers7617.limelight.JsonUtilities;
 
 /**
- * Represents an AprilTag/Fiducial Target Result extracted from JSON Output
+ * Represents an AprilTag/Fiducial Target Result extracted from JSON Output.
  */
 public class FiducialTarget {
 	@JsonProperty("fID")
@@ -95,6 +95,9 @@ public class FiducialTarget {
 	@JsonProperty("ts")
 	public double ts;
 
+	/**
+	 * Creates a new FiducialTarget with blank values.
+	 */
 	public FiducialTarget() {
 		cameraPose_TargetSpace = new double[6];
 		robotPose_FieldSpace = new double[6];

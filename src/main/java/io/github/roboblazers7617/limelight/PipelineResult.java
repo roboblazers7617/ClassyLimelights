@@ -102,6 +102,9 @@ public class PipelineResult {
 	@JsonProperty("Barcode")
 	public BarcodeTarget[] targets_Barcode;
 
+	/**
+	 * Creates a new PipelineResult with blank values.
+	 */
 	public PipelineResult() {
 		botpose = new double[6];
 		botpose_wpired = new double[6];

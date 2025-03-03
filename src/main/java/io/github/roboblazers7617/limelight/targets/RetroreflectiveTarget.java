@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 import io.github.roboblazers7617.limelight.JsonUtilities;
 
 /**
- * Represents a Color/Retroreflective Target Result extracted from JSON Output
+ * Represents a Color/Retroreflective Target Result extracted from JSON Output.
  */
 public class RetroreflectiveTarget {
 	@JsonProperty("t6c_ts")
@@ -89,6 +89,9 @@ public class RetroreflectiveTarget {
 	@JsonProperty("ts")
 	public double ts;
 
+	/**
+	 * Creates a new RetroreflectiveTarget with blank values.
+	 */
 	public RetroreflectiveTarget() {
 		cameraPose_TargetSpace = new double[6];
 		robotPose_FieldSpace = new double[6];

@@ -36,5 +36,8 @@ public class DetectorTarget {
 	@JsonProperty("ty_nocross")
 	public double ty_nocrosshair;
 
+	/**
+	 * Creates a new DetectorTarget with blank values.
+	 */
 	public DetectorTarget() {}
 }

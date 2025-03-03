@@ -7,11 +7,31 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
 import io.github.roboblazers7617.limelight.targets.RawFiducialTarget;
 
+/**
+ * Class to get pose estimate data from a {@link Limelight}.
+ */
 public class PoseEstimator {
+	/**
+	 * The NetworkTable for the {@link Limelight}.
+	 */
 	private final NetworkTable networkTable;
+	/**
+	 * The pose estimators to use.
+	 */
 	private final PoseEstimators poseEstimator;
+	/**
+	 * Subscriber for the pose data from the Limelight.
+	 */
 	private final DoubleArraySubscriber poseSubscriber;
 
+	/**
+	 * Creates a new PoseEstimator.
+	 *
+	 * @param limelight
+	 *            The {@link Limelight} to get data from.
+	 * @param poseEstimator
+	 *            The {@link PoseEstimators} to use.
+	 */
 	protected PoseEstimator(Limelight limelight, PoseEstimators poseEstimator) {
 		networkTable = limelight.networkTable;
 		this.poseEstimator = poseEstimator;

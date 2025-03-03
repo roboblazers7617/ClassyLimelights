@@ -10,21 +10,39 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import io.github.roboblazers7617.limelight.targets.RawFiducialTarget;
 import io.github.roboblazers7617.limelight.targets.neural.RawDetection;
 
+/**
+ * Fetches pipeline data from a {@link Limelight}.
+ */
 public class PipelineDataCollator {
+	/**
+	 * The Limelight to get data from.
+	 */
 	private final Limelight limelight;
+	/**
+	 * The NetworkTable for the given Limelight.
+	 */
 	private final NetworkTable networkTable;
+	/**
+	 * Object mapper used to parse JSON data from the Limelight.
+	 */
 	private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+	/**
+	 * Creates a new PipelineDataCollator.
+	 *
+	 * @param limelight
+	 *            The {@link Limelight} to get data from.
+	 */
 	public PipelineDataCollator(Limelight limelight) {
 		this.limelight = limelight;
 		networkTable = limelight.networkTable;
 	}
 
 	/**
-	 * Gets the latest raw neural detector results from NetworkTables
-	 * name
+	 * Gets the latest raw neural detector results from NetworkTables name.
 	 *
-	 * @return Array of RawDetection objects containing detection details
+	 * @return
+	 *         Array of RawDetection objects containing detection details.
 	 */
 	public RawDetection[] getRawDetections() {
 		NetworkTableEntry entry = limelight.networkTable.getEntry("rawdetections");
@@ -60,9 +78,9 @@ public class PipelineDataCollator {
 
 	/**
 	 * Gets the latest raw fiducial/AprilTag detection results from NetworkTables.
-	 * name
 	 *
-	 * @return Array of RawFiducialTarget objects containing detection details
+	 * @return
+	 *         Array of RawFiducialTarget objects containing detection details.
 	 */
 	public RawFiducialTarget[] getRawFiducialTargets() {
 		var entry = limelight.networkTable.getEntry("rawfiducials");
@@ -94,7 +112,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the latest JSON results output and returns a LimelightResults object.
 	 *
-	 * @return LimelightResults object containing all current target data
+	 * @return
+	 *         LimelightResults object containing all current target data
 	 */
 	public PipelineResult getLatestResults(boolean showParseTime) {
 		long start = System.nanoTime();
@@ -118,7 +137,8 @@ public class PipelineDataCollator {
 	/**
 	 * Does the Limelight have a valid target?
 	 *
-	 * @return True if a valid target is present, false otherwise
+	 * @return
+	 *         True if a valid target is present, false otherwise.
 	 */
 	public boolean getTV() {
 		return 1.0 == networkTable.getDoubleTopic("tv").getEntry(0).get();
@@ -127,7 +147,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the horizontal offset from the crosshair to the target in degrees.
 	 *
-	 * @return Horizontal offset angle in degrees
+	 * @return
+	 *         Horizontal offset angle in degrees.
 	 */
 	public double getTX() {
 		return networkTable.getDoubleTopic("tx").getEntry(0).get();
@@ -136,7 +157,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the vertical offset from the crosshair to the target in degrees.
 	 *
-	 * @return Vertical offset angle in degrees
+	 * @return
+	 *         Vertical offset angle in degrees.
 	 */
 	public double getTY() {
 		return networkTable.getDoubleTopic("ty").getEntry(0).get();
@@ -145,7 +167,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the horizontal offset from the principal pixel/point to the target in degrees. This is the most accurate 2d metric if you are using a calibrated camera and you don't need adjustable crosshair functionality.
 	 *
-	 * @return Horizontal offset angle in degrees
+	 * @return
+	 *         Horizontal offset angle in degrees
 	 */
 	public double getTXNC() {
 		return networkTable.getDoubleTopic("txnc").getEntry(0).get();
@@ -154,7 +177,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the vertical offset from the principal pixel/point to the target in degrees. This is the most accurate 2d metric if you are using a calibrated camera and you don't need adjustable crosshair functionality.
 	 *
-	 * @return Vertical offset angle in degrees
+	 * @return
+	 *         Vertical offset angle in degrees
 	 */
 	public double getTYNC() {
 		return networkTable.getDoubleTopic("tync").getEntry(0).get();
@@ -163,16 +187,18 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the target area as a percentage of the image (0-100%).
 	 *
-	 * @return Target area percentage (0-100)
+	 * @return
+	 *         Target area percentage (0-100).
 	 */
 	public double getTA() {
 		return networkTable.getDoubleTopic("ta").getEntry(0).get();
 	}
 
 	/**
-	 * T2D is an array that contains several targeting metrcis
+	 * T2D is an array that contains several targeting metrics.
 	 *
-	 * @return Array containing [targetValid, targetCount, targetLatency, captureLatency, tx, ty, txnc, tync, ta, tid, targetClassIndexDetector,
+	 * @return
+	 *         Array containing [targetValid, targetCount, targetLatency, captureLatency, tx, ty, txnc, tync, ta, tid, targetClassIndexDetector,
 	 *         targetClassIndexClassifier, targetLongSidePixels, targetShortSidePixels, targetHorizontalExtentPixels, targetVerticalExtentPixels, targetSkewDegrees]
 	 */
 	public double[] getT2DArray() {
@@ -182,7 +208,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the number of targets currently detected.
 	 *
-	 * @return Number of detected targets
+	 * @return
+	 *         Number of detected targets
 	 */
 	public int getTargetCount() {
 		double[] t2d = getT2DArray();
@@ -193,9 +220,10 @@ public class PipelineDataCollator {
 	}
 
 	/**
-	 * Gets the classifier class index from the currently running neural classifier pipeline
+	 * Gets the classifier class index from the currently running neural classifier pipeline.
 	 *
-	 * @return Class index from classifier pipeline
+	 * @return
+	 *         Class index from classifier pipeline.
 	 */
 	public int getClassifierClassIndex() {
 		double[] t2d = getT2DArray();
@@ -208,7 +236,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the detector class index from the primary result of the currently running neural detector pipeline.
 	 *
-	 * @return Class index from detector pipeline
+	 * @return
+	 *         Class index from detector pipeline.
 	 */
 	public int getDetectorClassIndex() {
 		double[] t2d = getT2DArray();
@@ -221,7 +250,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the current neural classifier result class name.
 	 *
-	 * @return Class name string from classifier pipeline
+	 * @return
+	 *         Class name string from classifier pipeline.
 	 */
 	public String getClassifierClass() {
 		return networkTable.getStringTopic("tcclass").getEntry("").get();
@@ -230,7 +260,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the primary neural detector result class name.
 	 *
-	 * @return Class name string from detector pipeline
+	 * @return
+	 *         Class name string from detector pipeline.
 	 */
 	public String getDetectorClass() {
 		return networkTable.getStringTopic("tdclass").getEntry("").get();
@@ -239,7 +270,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the pipeline's processing latency contribution.
 	 *
-	 * @return Pipeline latency in milliseconds
+	 * @return
+	 *         Pipeline latency in milliseconds.
 	 */
 	public double getLatency_Pipeline() {
 		return networkTable.getDoubleTopic("tl").getEntry(0).get();
@@ -248,7 +280,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the capture latency.
 	 *
-	 * @return Capture latency in milliseconds
+	 * @return
+	 *         Capture latency in milliseconds.
 	 */
 	public double getLatency_Capture() {
 		return networkTable.getDoubleTopic("cl").getEntry(0).get();
@@ -257,7 +290,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the active pipeline index.
 	 *
-	 * @return Current pipeline index (0-9)
+	 * @return
+	 *         Current pipeline index (0-9).
 	 */
 	public double getCurrentPipelineIndex() {
 		return networkTable.getDoubleTopic("getpipe").getEntry(0).get();
@@ -266,7 +300,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the current pipeline type.
 	 *
-	 * @return Pipeline type string (e.g. "retro", "apriltag", etc)
+	 * @return
+	 *         Pipeline type string (e.g. "retro", "apriltag", etc).
 	 */
 	public String getCurrentPipelineType() {
 		return networkTable.getStringTopic("getpipetype").getEntry("").get();
@@ -275,7 +310,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the full JSON results dump.
 	 *
-	 * @return JSON string containing all current results
+	 * @return
+	 *         JSON string containing all current results.
 	 */
 	public String getJSONDump() {
 		return networkTable.getStringTopic("json").getEntry("").get();
@@ -284,7 +320,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the robot's 3D pose with respect to the currently tracked target's coordinate system.
 	 *
-	 * @return Pose3d object representing the robot's position and orientation relative to the target
+	 * @return
+	 *         Pose3d object representing the robot's position and orientation relative to the target.
 	 */
 	public Pose3d getBotPose3d_TargetSpace() {
 		double[] poseArray = networkTable.getDoubleArrayTopic("botpose_targetspace").getEntry(new double[0]).get();
@@ -294,7 +331,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the camera's 3D pose with respect to the currently tracked target's coordinate system.
 	 *
-	 * @return Pose3d object representing the camera's position and orientation relative to the target
+	 * @return
+	 *         Pose3d object representing the camera's position and orientation relative to the target.
 	 */
 	public Pose3d getCameraPose3d_TargetSpace() {
 		double[] poseArray = networkTable.getDoubleArrayTopic("camerapose_targetspace").getEntry(new double[0]).get();
@@ -304,7 +342,8 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the target's 3D pose with respect to the camera's coordinate system.
 	 *
-	 * @return Pose3d object representing the target's position and orientation relative to the camera
+	 * @return
+	 *         Pose3d object representing the target's position and orientation relative to the camera.
 	 */
 	public Pose3d getTargetPose3d_CameraSpace() {
 		double[] poseArray = networkTable.getDoubleArrayTopic("targetpose_cameraspace").getEntry(new double[0]).get();
@@ -314,37 +353,61 @@ public class PipelineDataCollator {
 	/**
 	 * Gets the target's 3D pose with respect to the robot's coordinate system.
 	 *
-	 * @return Pose3d object representing the target's position and orientation relative to the robot
+	 * @return
+	 *         Pose3d object representing the target's position and orientation relative to the robot.
 	 */
 	public Pose3d getTargetPose3d_RobotSpace() {
 		double[] poseArray = networkTable.getDoubleArrayTopic("targetpose_robotspace").getEntry(new double[0]).get();
-		;
 		return JsonUtilities.toPose3D(poseArray);
 	}
 
 	/**
 	 * Gets the camera's 3D pose with respect to the robot's coordinate system.
 	 *
-	 * @return Pose3d object representing the camera's position and orientation relative to the robot
+	 * @return
+	 *         Pose3d object representing the camera's position and orientation relative to the robot.
 	 */
 	public Pose3d getCameraPose3d_RobotSpace() {
 		double[] poseArray = networkTable.getDoubleArrayTopic("camerapose_robotspace").getEntry(new double[0]).get();
-		;
 		return JsonUtilities.toPose3D(poseArray);
 	}
 
+	/**
+	 * Gets the color of the target.
+	 *
+	 * @return
+	 *         Color in the format [H, S, V].
+	 */
 	public double[] getTargetColor() {
 		return networkTable.getDoubleArrayTopic("tc").getEntry(new double[0]).get();
 	}
 
+	/**
+	 * Gets the ID of the primary AprilTag.
+	 *
+	 * @return
+	 *         AprilTag ID.
+	 */
 	public double getFiducialID() {
 		return networkTable.getDoubleTopic("tid").getEntry(0).get();
 	}
 
+	/**
+	 * Gets the class ID of the primary neural detector/classifier result.
+	 *
+	 * @return
+	 *         Class ID.
+	 */
 	public String getNeuralClassID() {
 		return networkTable.getStringTopic("tclass").getEntry("").get();
 	}
 
+	/**
+	 * Gets the raw barcode results.
+	 *
+	 * @return
+	 *         String array of barcode data.
+	 */
 	public String[] getRawBarcodeData() {
 		return networkTable.getStringArrayTopic("rawbarcodes").getEntry(new String[0]).get();
 	}
