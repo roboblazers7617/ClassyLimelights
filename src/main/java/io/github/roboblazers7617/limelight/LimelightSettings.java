@@ -138,7 +138,7 @@ public class LimelightSettings {
 	 *         This object for method chaining.
 	 */
 	public LimelightSettings withLimelightLEDMode(LEDMode mode) {
-		ledMode.setNumber(mode.ordinal());
+		ledMode.setNumber(mode.getValue());
 		return this;
 	}
 
@@ -183,7 +183,7 @@ public class LimelightSettings {
 	 *         This object for method chaining.
 	 */
 	public LimelightSettings withStreamMode(StreamMode mode) {
-		streamMode.setNumber(mode.ordinal());
+		streamMode.setNumber(mode.getValue());
 		return this;
 	}
 
@@ -219,7 +219,7 @@ public class LimelightSettings {
 	 *         This object for method chaining.
 	 */
 	public LimelightSettings withImuMode(ImuMode mode) {
-		imuMode.setNumber(mode.ordinal());
+		imuMode.setNumber(mode.getValue());
 		return this;
 	}
 
@@ -266,7 +266,7 @@ public class LimelightSettings {
 	 *         This object for method chaining.
 	 */
 	public LimelightSettings withFiducialDownscalingOverride(DownscalingOverride downscalingOverride) {
-		downscale.setDouble(downscalingOverride.ordinal());
+		downscale.setDouble(downscalingOverride.getValue());
 		return this;
 	}
 
@@ -319,7 +319,7 @@ public class LimelightSettings {
 
 	/**
 	 * Push any pending changes to the {@link NetworkTable} instance immediately.
-	 * 
+	 *
 	 * @apiNote
 	 *          This method changes the Limelight immediately.
 	 * @apiNote
@@ -334,7 +334,32 @@ public class LimelightSettings {
 	 * LED Mode for the {@link Limelight}.
 	 */
 	public enum LEDMode {
-		PipelineControl, ForceOff, ForceBlink, ForceOn
+		PipelineControl(0), ForceOff(1), ForceBlink(2), ForceOn(3);
+
+		/**
+		 * The NetworkTables value for this entry.
+		 */
+		public final int value;
+
+		/**
+		 * Creates a new LEDMode entry.
+		 *
+		 * @param value
+		 *            The {@link #value} to assign.
+		 */
+		LEDMode(int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Gets the {@link #value} of this entry.
+		 *
+		 * @return
+		 *         {@link #value} of this entry.
+		 */
+		public int getValue() {
+			return value;
+		}
 	}
 
 	/**
@@ -344,15 +369,40 @@ public class LimelightSettings {
 		/**
 		 * Side by side.
 		 */
-		Standard,
+		Standard(0),
 		/**
 		 * Picture in picture, with secondary in corner.
 		 */
-		PictureInPictureMain,
+		PictureInPictureMain(1),
 		/**
 		 * Picture in picture, with main in corner.
 		 */
-		PictureInPictureSecondary
+		PictureInPictureSecondary(2);
+
+		/**
+		 * The NetworkTables value for this entry.
+		 */
+		public final int value;
+
+		/**
+		 * Creates a new StreamMode entry.
+		 *
+		 * @param value
+		 *            The {@link #value} to assign.
+		 */
+		StreamMode(int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Gets the {@link #value} of this entry.
+		 *
+		 * @return
+		 *         {@link #value} of this entry.
+		 */
+		public int getValue() {
+			return value;
+		}
 	}
 
 	/**
@@ -360,29 +410,54 @@ public class LimelightSettings {
 	 */
 	public enum DownscalingOverride {
 		/**
-		 * Pipeline downscaling, equivalent to 0
+		 * Pipeline downscaling.
 		 */
-		Pipeline,
+		Pipeline(0),
 		/**
-		 * No downscaling, equivalent to 1
+		 * No downscaling.
 		 */
-		NoDownscale,
+		NoDownscale(1),
 		/**
-		 * Half downscaling, equivalent to 1.5
+		 * Half downscaling.
 		 */
-		HalfDownscale,
+		HalfDownscale(2),
 		/**
-		 * Double downscaling, equivalent to 2
+		 * Double downscaling.
 		 */
-		DoubleDownscale,
+		DoubleDownscale(3),
 		/**
-		 * Triple downscaling, equivalent to 3
+		 * Triple downscaling.
 		 */
-		TripleDownscale,
+		TripleDownscale(4),
 		/**
-		 * Quadruple downscaling, equivalent to 4
+		 * Quadruple downscaling.
 		 */
-		QuadrupleDownscale
+		QuadrupleDownscale(5);
+
+		/**
+		 * The NetworkTables value for this entry.
+		 */
+		public final int value;
+
+		/**
+		 * Creates a new DownscalingOverride entry.
+		 *
+		 * @param value
+		 *            The {@link #value} to assign.
+		 */
+		DownscalingOverride(int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Gets the {@link #value} of this entry.
+		 *
+		 * @return
+		 *         {@link #value} of this entry.
+		 */
+		public int getValue() {
+			return value;
+		}
 	}
 
 	/**
@@ -392,22 +467,47 @@ public class LimelightSettings {
 		/**
 		 * Use external IMU yaw submitted via {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2 localization. The internal IMU is ignored entirely.
 		 */
-		ExternalImu,
+		ExternalImu(0),
 		/**
 		 * Use external IMU yaw submitted via {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2 localization. The internal IMU is synced with the external IMU.
 		 */
-		SyncInternalImu,
+		SyncInternalImu(1),
 		/**
 		 * Use internal IMU for MT2 localization. Ignores external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
-		InternalImu,
+		InternalImu(2),
 		/**
 		 * Use internal IMU for MT2 localization while using correcting it with estimated yaws from MT1. Ignores external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
-		MT1AssistInternalImu,
+		MT1AssistInternalImu(3),
 		/**
 		 * Use internal IMU for MT2 localization while correcting it with external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
-		ExternalAssistInternalIMU
+		ExternalAssistInternalIMU(4);
+
+		/**
+		 * The NetworkTables value for this entry.
+		 */
+		public final int value;
+
+		/**
+		 * Creates a new ImuMode entry.
+		 *
+		 * @param value
+		 *            The {@link #value} to assign.
+		 */
+		ImuMode(int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Gets the {@link #value} of this entry.
+		 *
+		 * @return
+		 *         {@link #value} of this entry.
+		 */
+		public int getValue() {
+			return value;
+		}
 	}
 }
