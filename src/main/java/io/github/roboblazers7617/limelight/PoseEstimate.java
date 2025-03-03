@@ -118,4 +118,40 @@ public class PoseEstimate {
 	public int getTagCount() {
 		return tagCount;
 	}
+
+	/**
+	 * Prints detailed information about this PoseEstimate to standard output.
+	 * Includes timestamp, latency, tag count, tag span, average tag distance,
+	 * average tag area, and detailed information about each detected fiducial.
+	 */
+	public void print() {
+		System.out.printf("Pose Estimate Information:%n");
+		System.out.printf("Timestamp (Seconds): %.3f%n", timestampSeconds);
+		System.out.printf("Latency: %.3f ms%n", latency);
+		System.out.printf("Tag Count: %d%n", tagCount);
+		System.out.printf("Tag Span: %.2f meters%n", tagSpan);
+		System.out.printf("Average Tag Distance: %.2f meters%n", avgTagDist);
+		System.out.printf("Average Tag Area: %.2f%% of image%n", avgTagArea);
+		System.out.printf("Is MegaTag2: %b%n", isMegaTag2);
+		System.out.println();
+
+		if (rawFiducials == null || rawFiducials.length == 0) {
+			System.out.println("No RawFiducials data available.");
+			return;
+		}
+
+		System.out.println("Raw Fiducials Details:");
+		for (int i = 0; i < rawFiducials.length; i++) {
+			RawFiducialTarget fiducial = rawFiducials[i];
+			System.out.printf(" Fiducial #%d:%n", i + 1);
+			System.out.printf("  ID: %d%n", fiducial.id);
+			System.out.printf("  TXNC: %.2f%n", fiducial.txnc);
+			System.out.printf("  TYNC: %.2f%n", fiducial.tync);
+			System.out.printf("  TA: %.2f%n", fiducial.ta);
+			System.out.printf("  Distance to Camera: %.2f meters%n", fiducial.distToCamera);
+			System.out.printf("  Distance to Robot: %.2f meters%n", fiducial.distToRobot);
+			System.out.printf("  Ambiguity: %.2f%n", fiducial.ambiguity);
+			System.out.println();
+		}
+	}
 }
