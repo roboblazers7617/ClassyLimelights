@@ -334,7 +334,22 @@ public class LimelightSettings {
 	 * LED Mode for the {@link Limelight}.
 	 */
 	public enum LEDMode {
-		PipelineControl(0), ForceOff(1), ForceBlink(2), ForceOn(3);
+		/**
+		 * Pipeline mode.
+		 */
+		PipelineControl(0),
+		/**
+		 * Force the LEDs off.
+		 */
+		ForceOff(1),
+		/**
+		 * Force the LEDs to blink.
+		 */
+		ForceBlink(2),
+		/**
+		 * Force the LEDs on.
+		 */
+		ForceOn(3);
 
 		/**
 		 * The NetworkTables value for this entry.
