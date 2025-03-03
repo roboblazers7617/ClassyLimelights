@@ -34,8 +34,7 @@ public class LimelightSettings {
 	/**
 	 * LED Mode entry for the Limelight.
 	 *
-	 * @apiNote
-	 *          0 = Pipeline Control, 1 = Force Off, 2 = Force Blink, 3 = Force On
+	 * @see LEDMode#value
 	 */
 	private NetworkTableEntry ledMode;
 	/**
@@ -49,8 +48,7 @@ public class LimelightSettings {
 	/**
 	 * Stream mode.
 	 *
-	 * @apiNote
-	 *          0 = Side-by-side, 1 = Picture-in-Picture (second in corner), 2 = Picture-in-Picture (primary in corner)
+	 * @see StreamMode#value
 	 */
 	private NetworkTableEntry streamMode;
 	/**
@@ -62,6 +60,8 @@ public class LimelightSettings {
 	private DoubleArrayEntry cropWindow;
 	/**
 	 * Imu Mode entry for the Limelight 4.
+	 *
+	 * @see ImuMode#value
 	 */
 	private NetworkTableEntry imuMode;
 	/**
@@ -91,8 +91,7 @@ public class LimelightSettings {
 	/**
 	 * Entry for the downscaling factor for AprilTag detection. Increasing downscale can improve performance at the cost of potentially reduced detection range.
 	 *
-	 * @apiNote
-	 *          Valid values are [0 (pipeline control), 1 (no downscale), 2, 3, 4].
+	 * @see DownscalingOverride#value
 	 */
 	private NetworkTableEntry downscale;
 	/**
@@ -260,8 +259,7 @@ public class LimelightSettings {
 	 * @apiNote
 	 *          This method changes the Limelight - normally immediately.
 	 * @param downscalingOverride
-	 *            Downscale factor. Valid values: 1.0 (no downscale), 1.5, 2.0, 3.0, 4.0. Set to 0 for
-	 *            pipeline control.
+	 *            Downscale factor.
 	 * @return
 	 *         This object for method chaining.
 	 */
