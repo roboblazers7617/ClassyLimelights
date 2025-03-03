@@ -110,7 +110,7 @@ public class LimelightSettings {
 	 */
 	public LimelightSettings(Limelight camera) {
 		limelight = camera;
-		limelightTable = limelight.networkTable;
+		limelightTable = limelight.getNetworkTable();
 		ledMode = limelightTable.getEntry("ledMode");
 
 		pipelineIndex = limelightTable.getEntry("pipeline");

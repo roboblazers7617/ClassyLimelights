@@ -33,7 +33,7 @@ public class PoseEstimator {
 	 *            The {@link PoseEstimators} to use.
 	 */
 	protected PoseEstimator(Limelight limelight, PoseEstimators poseEstimator) {
-		networkTable = limelight.networkTable;
+		networkTable = limelight.getNetworkTable();
 		this.poseEstimator = poseEstimator;
 		poseSubscriber = networkTable.getDoubleArrayTopic(poseEstimator.getEntry()).subscribe(new double[0]);
 	}

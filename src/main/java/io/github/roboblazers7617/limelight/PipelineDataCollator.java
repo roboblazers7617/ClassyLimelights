@@ -15,10 +15,6 @@ import io.github.roboblazers7617.limelight.targets.neural.RawDetection;
  */
 public class PipelineDataCollator {
 	/**
-	 * The Limelight to get data from.
-	 */
-	private final Limelight limelight;
-	/**
 	 * The NetworkTable for the given Limelight.
 	 */
 	private final NetworkTable networkTable;
@@ -34,8 +30,7 @@ public class PipelineDataCollator {
 	 *            The {@link Limelight} to get data from.
 	 */
 	public PipelineDataCollator(Limelight limelight) {
-		this.limelight = limelight;
-		networkTable = limelight.networkTable;
+		networkTable = limelight.getNetworkTable();
 	}
 
 	/**
@@ -45,7 +40,7 @@ public class PipelineDataCollator {
 	 *         Array of RawDetection objects containing detection details.
 	 */
 	public RawDetection[] getRawDetections() {
-		NetworkTableEntry entry = limelight.networkTable.getEntry("rawdetections");
+		NetworkTableEntry entry = networkTable.getEntry("rawdetections");
 		double[] rawDetectionArray = entry.getDoubleArray(new double[0]);
 		int valsPerEntry = 12;
 		if (rawDetectionArray.length % valsPerEntry != 0) {
@@ -83,7 +78,7 @@ public class PipelineDataCollator {
 	 *         Array of RawFiducialTarget objects containing detection details.
 	 */
 	public RawFiducialTarget[] getRawFiducialTargets() {
-		var entry = limelight.networkTable.getEntry("rawfiducials");
+		var entry = networkTable.getEntry("rawfiducials");
 		var rawFiducialArray = entry.getDoubleArray(new double[0]);
 		int valsPerEntry = 7;
 		if (rawFiducialArray.length % valsPerEntry != 0) {

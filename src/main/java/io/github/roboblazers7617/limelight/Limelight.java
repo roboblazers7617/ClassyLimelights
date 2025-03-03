@@ -26,8 +26,14 @@ public class Limelight {
 	 * The {@link NetworkTable} used by this Limelight.
 	 */
 	public final NetworkTable networkTable;
-	public final PipelineDataCollator dataCollator;
+	/**
+	 * The {@link LimelightSettings} of this Limelight.
+	 */
 	public final LimelightSettings settings;
+	/**
+	 * The {@link PipelineDataCollator} used by this Limelight.
+	 */
+	public final PipelineDataCollator dataCollator;
 	private final DoubleArrayEntry robotOrientationEntry;
 
 	/**
@@ -44,6 +50,36 @@ public class Limelight {
 		dataCollator = new PipelineDataCollator(this);
 
 		robotOrientationEntry = networkTable.getDoubleArrayTopic("robot_orientation_set").getEntry(new double[0]);
+	}
+
+	/**
+	 * Gets the {@link #networkTable} for this Limelight.
+	 *
+	 * @return
+	 *         The {@link #networkTable} for this Limelight.
+	 */
+	public NetworkTable getNetworkTable() {
+		return networkTable;
+	}
+
+	/**
+	 * Gets the {@link #settings} for this Limelight.
+	 *
+	 * @return
+	 *         The {@link #settings} for this Limelight.
+	 */
+	public LimelightSettings getSettings() {
+		return settings;
+	}
+
+	/**
+	 * Gets the {@link #dataCollator} for this Limelight.
+	 *
+	 * @return
+	 *         The {@link #dataCollator} for this Limelight.
+	 */
+	public PipelineDataCollator getDataCollator() {
+		return dataCollator;
 	}
 
 	/**
