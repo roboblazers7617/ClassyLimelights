@@ -34,6 +34,9 @@ public class Limelight {
 	 * The {@link PipelineDataCollator} used by this Limelight.
 	 */
 	public final PipelineDataCollator dataCollator;
+	/**
+	 * The NetworkTables entry for the robot orientation input.
+	 */
 	private final DoubleArrayEntry robotOrientationEntry;
 
 	/**
@@ -97,7 +100,7 @@ public class Limelight {
 	 * Creates a new {@link PoseEstimator} for this Limelight.
 	 *
 	 * @param estimator
-	 *            The {@link PoseEstimators} to use.
+	 *            The {@link PoseEstimators pose estimator} to use.
 	 * @return
 	 *         The created {@link PoseEstimator}.
 	 */

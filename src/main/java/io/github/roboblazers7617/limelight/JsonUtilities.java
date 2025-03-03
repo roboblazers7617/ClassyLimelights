@@ -118,6 +118,16 @@ public class JsonUtilities {
 		return result;
 	}
 
+	/**
+	 * Gets the data from a double array at the given index.
+	 *
+	 * @param inData
+	 *            The array to read from.
+	 * @param position
+	 *            The index to read from.
+	 * @return
+	 *         The data at that index, or 0 if outside array.
+	 */
 	public static double extractArrayEntry(double[] inData, int position) {
 		if (inData.length < position + 1) {
 			return 0;
