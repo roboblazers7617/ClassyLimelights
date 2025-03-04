@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import edu.wpi.first.networktables.DoubleArraySubscriber;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
 import io.github.roboblazers7617.limelight.targets.RawFiducialTarget;
 
@@ -19,10 +20,15 @@ public class PoseEstimator {
 	 * The pose estimator to use.
 	 */
 	private final PoseEstimators poseEstimator;
+
 	/**
 	 * Subscriber for the pose data from the Limelight.
 	 */
 	private final DoubleArraySubscriber poseSubscriber;
+	/**
+	 * Entry for the raw fiducial data from the Limelight.
+	 */
+	private final NetworkTableEntry rawFiducialsEntry;
 
 	/**
 	 * Creates a new PoseEstimator.
@@ -35,7 +41,9 @@ public class PoseEstimator {
 	protected PoseEstimator(Limelight limelight, PoseEstimators poseEstimator) {
 		networkTable = limelight.getNetworkTable();
 		this.poseEstimator = poseEstimator;
+
 		poseSubscriber = networkTable.getDoubleArrayTopic(poseEstimator.getEntry()).subscribe(new double[0]);
+		rawFiducialsEntry = networkTable.getEntry("rawfiducials");
 	}
 
 	/**
@@ -104,13 +112,12 @@ public class PoseEstimator {
 
 	/**
 	 * Gets the latest raw fiducial/AprilTag detection results from NetworkTables.
-	 * name
 	 *
-	 * @return Array of RawFiducialTarget objects containing detection details
+	 * @return
+	 *         Array of RawFiducialTarget objects containing detection details.
 	 */
 	public RawFiducialTarget[] getRawFiducialTargets() {
-		var entry = networkTable.getEntry("rawfiducials");
-		var rawFiducialArray = entry.getDoubleArray(new double[0]);
+		var rawFiducialArray = rawFiducialsEntry.getDoubleArray(new double[0]);
 		int valsPerEntry = 7;
 		if (rawFiducialArray.length % valsPerEntry != 0) {
 			return new RawFiducialTarget[0];
