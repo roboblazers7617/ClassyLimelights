@@ -19,8 +19,6 @@ import java.util.List;
  * <p>
  * Initially, at constructor time, settings are fetched from the LL, however, there is no provision to programatically
  * access those values - they are dead, useless.
- * <p>
- * Sourced from Yet Another Limelight Lib (YALL).
  */
 public class LimelightSettings {
 	/**
