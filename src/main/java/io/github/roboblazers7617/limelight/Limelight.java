@@ -47,8 +47,8 @@ public class Limelight {
 	 */
 	public Limelight(String name) {
 		this.name = JsonUtilities.sanitizeName(name);
+		networkTable = NetworkTableInstance.getDefault().getTable(this.name);
 
-		networkTable = NetworkTableInstance.getDefault().getTable(name);
 		settings = new LimelightSettings(this);
 		dataCollator = new PipelineDataCollator(this);
 
