@@ -120,9 +120,9 @@ public class PoseEstimate {
 	}
 
 	/**
-	 * Prints detailed information about this PoseEstimate to standard output.
-	 * Includes timestamp, latency, tag count, tag span, average tag distance,
-	 * average tag area, and detailed information about each detected fiducial.
+	 * Prints detailed information about this PoseEstimate to standard output. Includes timestamp,
+	 * latency, tag count, tag span, average tag distance, average tag area, and detailed information
+	 * about each detected fiducial.
 	 */
 	public void print() {
 		System.out.printf("Pose Estimate Information:%n");

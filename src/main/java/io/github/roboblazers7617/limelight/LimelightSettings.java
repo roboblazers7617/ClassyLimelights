@@ -13,12 +13,12 @@ import java.util.List;
  * <p>
  * These settings are sent from the roboRIO back to the Limelight to affect the LL.
  * <p>
- * One or more chains of ".withXXXX" methods can change the LL settings. The action of each ".withXXXX" method is
- * essentially immediate, however, some slight delay is possible and the {@link #save()} method will immediately save any
- * settings that had not yet been saved.
+ * One or more chains of ".withXXXX" methods can change the LL settings. The action of each
+ * ".withXXXX" method is essentially immediate, however, some slight delay is possible and the
+ * {@link #save()} method will immediately save any settings that had not yet been saved.
  * <p>
- * Initially, at constructor time, settings are fetched from the LL, however, there is no provision to programatically
- * access those values - they are dead, useless.
+ * Initially, at constructor time, settings are fetched from the LL, however, there is no provision
+ * to programatically access those values - they are dead, useless.
  */
 public class LimelightSettings {
 	/**
@@ -74,7 +74,8 @@ public class LimelightSettings {
 	 */
 	private NetworkTableEntry processFrameFrequency;
 	/**
-	 * Entry that sets 3d offset point for easy 3d targeting Sets the 3D point-of-interest offset for the current fiducial pipeline.
+	 * Entry that sets 3d offset point for easy 3d targeting Sets the 3D point-of-interest offset for
+	 * the current fiducial pipeline.
 	 * <p>
 	 * https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking
 	 *
@@ -87,7 +88,8 @@ public class LimelightSettings {
 	 */
 	private DoubleArrayEntry fiducialIDFiltersOverride;
 	/**
-	 * Entry for the downscaling factor for AprilTag detection. Increasing downscale can improve performance at the cost of potentially reduced detection range.
+	 * Entry for the downscaling factor for AprilTag detection. Increasing downscale can improve
+	 * performance at the cost of potentially reduced detection range.
 	 *
 	 * @see DownscalingOverride#value
 	 */
@@ -96,7 +98,8 @@ public class LimelightSettings {
 	 * Camera pose entry relative to the robot.
 	 *
 	 * @apiNote
-	 *          DoubleArray [forward(meters), side(meters), up(meters), roll(degrees), pitch(degrees), yaw(degrees)]
+	 *          DoubleArray [forward(meters), side(meters), up(meters), roll(degrees), pitch(degrees),
+	 *          yaw(degrees)]
 	 */
 	private DoubleArrayEntry cameraToRobot;
 
@@ -221,7 +224,8 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the {@link #imuAssistAlpha IMU's alpha value} for its complementary filter while in one of the {@link ImuMode}'s assist modes.
+	 * Set the {@link #imuAssistAlpha IMU's alpha value} for its complementary filter while in one of
+	 * the {@link ImuMode}'s assist modes.
 	 *
 	 * @apiNote
 	 *          This method changes the Limelight - normally immediately.
@@ -236,7 +240,8 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Sets the {@link #processFrameFrequency number of frames to skip} between processing the contents of a frame.
+	 * Sets the {@link #processFrameFrequency number of frames to skip} between processing the contents
+	 * of a frame.
 	 *
 	 * @apiNote
 	 *          This method changes the Limelight - normally immediately.
@@ -251,8 +256,8 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Sets the {@link #downscale downscaling factor} for AprilTag detection. Increasing downscale can improve performance at the cost of
-	 * potentially reduced detection range.
+	 * Sets the {@link #downscale downscaling factor} for AprilTag detection. Increasing downscale can
+	 * improve performance at the cost of potentially reduced detection range.
 	 *
 	 * @apiNote
 	 *          This method changes the Limelight - normally immediately.
@@ -267,8 +272,9 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Set the {@link #fiducial3DOffset offset} from the AprilTag that is of interest. More information here. <a
-	 * href="https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking">Docs
+	 * Set the {@link #fiducial3DOffset offset} from the AprilTag that is of interest. More information
+	 * here. <a href=
+	 * "https://docs.limelightvision.io/docs/docs-limelight/pipeline-apriltag/apriltag-3d#point-of-interest-tracking">Docs
 	 * page</a>
 	 *
 	 * @apiNote
@@ -304,7 +310,8 @@ public class LimelightSettings {
 	 * @apiNote
 	 *          This method changes the Limelight - normally immediately.
 	 * @param offset
-	 *            {@link Pose3d} of the {@link Limelight} with the {@link edu.wpi.first.math.geometry.Rotation3d} set in Meters.
+	 *            {@link Pose3d} of the {@link Limelight} with the
+	 *            {@link edu.wpi.first.math.geometry.Rotation3d} set in Meters.
 	 * @return
 	 *         This object for method chaining.
 	 */
@@ -319,8 +326,8 @@ public class LimelightSettings {
 	 * @apiNote
 	 *          This method changes the Limelight immediately.
 	 * @apiNote
-	 *          Most setting changes are done essentially immediately and this method
-	 *          isn't needed but does no harm to assure changes.
+	 *          Most setting changes are done essentially immediately and this method isn't needed but
+	 *          does no harm to assure changes.
 	 */
 	public void save() {
 		NetworkTableInstance.getDefault().flush();
@@ -476,23 +483,31 @@ public class LimelightSettings {
 	 */
 	public enum ImuMode {
 		/**
-		 * Use external IMU yaw submitted via {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2 localization. The internal IMU is ignored entirely.
+		 * Use external IMU yaw submitted via
+		 * {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2
+		 * localization. The internal IMU is ignored entirely.
 		 */
 		ExternalImu(0),
 		/**
-		 * Use external IMU yaw submitted via {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2 localization. The internal IMU is synced with the external IMU.
+		 * Use external IMU yaw submitted via
+		 * {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)} for MT2
+		 * localization. The internal IMU is synced with the external IMU.
 		 */
 		SyncInternalImu(1),
 		/**
-		 * Use internal IMU for MT2 localization. Ignores external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
+		 * Use internal IMU for MT2 localization. Ignores external IMU updates from
+		 * {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
 		InternalImu(2),
 		/**
-		 * Use internal IMU for MT2 localization while using correcting it with estimated yaws from MT1. Ignores external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
+		 * Use internal IMU for MT2 localization while using correcting it with estimated yaws from MT1.
+		 * Ignores external IMU updates from
+		 * {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
 		MT1AssistInternalImu(3),
 		/**
-		 * Use internal IMU for MT2 localization while correcting it with external IMU updates from {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
+		 * Use internal IMU for MT2 localization while correcting it with external IMU updates from
+		 * {@link Limelight#setRobotOrientation(edu.wpi.first.math.geometry.Rotation3d)}.
 		 */
 		ExternalAssistInternalIMU(4);
 

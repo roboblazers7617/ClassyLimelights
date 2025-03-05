@@ -292,7 +292,9 @@ public class PipelineDataCollator {
 	}
 
 	/**
-	 * Gets the horizontal offset from the principal pixel/point to the target in degrees. This is the most accurate 2d metric if you are using a calibrated camera and you don't need adjustable crosshair functionality.
+	 * Gets the horizontal offset from the principal pixel/point to the target in degrees. This is the
+	 * most accurate 2d metric if you are using a calibrated camera and you don't need adjustable
+	 * crosshair functionality.
 	 *
 	 * @return
 	 *         Horizontal offset angle in degrees
@@ -302,7 +304,9 @@ public class PipelineDataCollator {
 	}
 
 	/**
-	 * Gets the vertical offset from the principal pixel/point to the target in degrees. This is the most accurate 2d metric if you are using a calibrated camera and you don't need adjustable crosshair functionality.
+	 * Gets the vertical offset from the principal pixel/point to the target in degrees. This is the
+	 * most accurate 2d metric if you are using a calibrated camera and you don't need adjustable
+	 * crosshair functionality.
 	 *
 	 * @return
 	 *         Vertical offset angle in degrees
@@ -325,8 +329,10 @@ public class PipelineDataCollator {
 	 * T2D is an array that contains several targeting metrics.
 	 *
 	 * @return
-	 *         Array containing [targetValid, targetCount, targetLatency, captureLatency, tx, ty, txnc, tync, ta, tid, targetClassIndexDetector,
-	 *         targetClassIndexClassifier, targetLongSidePixels, targetShortSidePixels, targetHorizontalExtentPixels, targetVerticalExtentPixels, targetSkewDegrees]
+	 *         Array containing [targetValid, targetCount, targetLatency, captureLatency, tx, ty, txnc,
+	 *         tync, ta, tid, targetClassIndexDetector, targetClassIndexClassifier,
+	 *         targetLongSidePixels, targetShortSidePixels, targetHorizontalExtentPixels,
+	 *         targetVerticalExtentPixels, targetSkewDegrees]
 	 */
 	public double[] getT2DArray() {
 		return targetT2DEntry.get();
@@ -361,7 +367,8 @@ public class PipelineDataCollator {
 	}
 
 	/**
-	 * Gets the detector class index from the primary result of the currently running neural detector pipeline.
+	 * Gets the detector class index from the primary result of the currently running neural detector
+	 * pipeline.
 	 *
 	 * @return
 	 *         Class index from detector pipeline.
