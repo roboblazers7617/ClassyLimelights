@@ -18,7 +18,7 @@ public class BarcodeTarget {
 	public String family;
 
 	/**
-	 * Gets the decoded data content of the barcode.
+	 * The decoded data content of the barcode.
 	 */
 	@JsonProperty("data")
 	public String data;
