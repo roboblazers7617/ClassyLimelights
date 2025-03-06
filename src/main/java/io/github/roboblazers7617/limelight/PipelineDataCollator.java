@@ -113,6 +113,14 @@ public class PipelineDataCollator {
 	 */
 	private final DoubleArrayEntry cameraPoseRobotSpaceEntry;
 	/**
+	 * The MegaTag standard deviations.
+	 *
+	 * @apiNote
+	 *          Array format [MT1x, MT1y, MT1z, MT1roll, MT1pitch, MT1Yaw, MT2x, MT2y, MT2z, MT2roll,
+	 *          MT2pitch, MT2yaw]
+	 */
+	private final DoubleArrayEntry standardDeviationsEntry;
+	/**
 	 * The target color [H, S, V].
 	 */
 	private final DoubleArrayEntry targetColorEntry;
@@ -159,6 +167,7 @@ public class PipelineDataCollator {
 		targetPoseCameraSpaceEntry = networkTable.getDoubleArrayTopic("targetpose_cameraspace").getEntry(new double[0]);
 		targetPoseRobotSpaceEntry = networkTable.getDoubleArrayTopic("targetpose_robotspace").getEntry(new double[0]);
 		cameraPoseRobotSpaceEntry = networkTable.getDoubleArrayTopic("camerapose_robotspace").getEntry(new double[0]);
+		standardDeviationsEntry = networkTable.getDoubleArrayTopic("stddevs").getEntry(new double[0]);
 		targetColorEntry = networkTable.getDoubleArrayTopic("tc").getEntry(new double[0]);
 		tagIdEntry = networkTable.getIntegerTopic("tid").getEntry(0);
 		targetClassEntry = networkTable.getStringTopic("tclass").getEntry("");
@@ -504,6 +513,18 @@ public class PipelineDataCollator {
 	public Pose3d getCameraPose3d_RobotSpace() {
 		double[] poseArray = cameraPoseRobotSpaceEntry.get();
 		return JsonUtilities.toPose3D(poseArray);
+	}
+
+	/**
+	 * Gets the standard deviation readings as an array.
+	 *
+	 * @return
+	 *         Array containing standard deviations for vision measurements.
+	 * @apiNote
+	 *          Array format documented in the {@link #standardDeviationsEntry} Javadoc.
+	 */
+	public double[] getStandardDeviationsArray() {
+		return standardDeviationsEntry.get();
 	}
 
 	/**
