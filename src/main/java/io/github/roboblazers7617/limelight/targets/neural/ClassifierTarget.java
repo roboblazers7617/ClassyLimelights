@@ -6,12 +6,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a Neural Classifier Pipeline Result extracted from JSON Output
  */
 public class ClassifierTarget {
+	/**
+	 * Human-readable class name string.
+	 */
 	@JsonProperty("class")
 	public String className;
 
+	/**
+	 * Class ID integer.
+	 */
 	@JsonProperty("classID")
 	public double classID;
 
+	/**
+	 * Confidence of the predicition.
+	 */
 	@JsonProperty("conf")
 	public double confidence;
 
