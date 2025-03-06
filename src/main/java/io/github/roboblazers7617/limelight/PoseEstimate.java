@@ -8,15 +8,49 @@ import io.github.roboblazers7617.limelight.targets.RawFiducialTarget;
  * Represents a 3D Pose Estimate.
  */
 public class PoseEstimate {
+	/**
+	 * The estimated robot pose.
+	 */
 	public Pose3d pose;
+
+	/**
+	 * The NetworkTables timestamp in seconds.
+	 */
 	public double timestampSeconds;
+
+	/**
+	 * The latency in milliseconds.
+	 */
 	public double latency;
+
+	/**
+	 * The number of tags used to compute this pose.
+	 */
 	public int tagCount;
+
+	/**
+	 * The maximium distance between the tags used to compute this pose in meters.
+	 */
 	public double tagSpan;
+
+	/**
+	 * The average distance between tags used to compute this pose in meters.
+	 */
 	public double avgTagDist;
+
+	/**
+	 * The average area of the tags used to compute this pose.
+	 */
 	public double avgTagArea;
 
+	/**
+	 * The raw fiducial data used to estimate this pose.
+	 */
 	public RawFiducialTarget[] rawFiducials;
+
+	/**
+	 * Was this pose computed using MegaTag2?
+	 */
 	public boolean isMegaTag2;
 
 	/**
