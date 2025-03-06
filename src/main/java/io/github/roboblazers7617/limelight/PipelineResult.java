@@ -206,6 +206,24 @@ public class PipelineResult {
 	public BarcodeTarget[] targets_Barcode;
 
 	/**
+	 * MegaTag1 Standard Deviation.
+	 *
+	 * @apiNote
+	 *          Array format is [x, y, z, roll, pitch, yaw] (meters, degrees).
+	 */
+	@JsonProperty("stdev_mt1")
+	public double[] standardDeviations_MegaTag1;
+
+	/**
+	 * MegaTag2 Standard Deviation.
+	 *
+	 * @apiNote
+	 *          Array format is [x, y, z, roll, pitch, yaw] (meters, degrees).
+	 */
+	@JsonProperty("stdev_mt2")
+	public double[] standardDeviations_MegaTag2;
+
+	/**
 	 * Creates a new PipelineResult with blank values.
 	 */
 	public PipelineResult() {
@@ -218,5 +236,7 @@ public class PipelineResult {
 		targets_Classifier = new ClassifierTarget[0];
 		targets_Detector = new DetectorTarget[0];
 		targets_Barcode = new BarcodeTarget[0];
+		standardDeviations_MegaTag1 = new double[6];
+		standardDeviations_MegaTag2 = new double[6];
 	}
 }
