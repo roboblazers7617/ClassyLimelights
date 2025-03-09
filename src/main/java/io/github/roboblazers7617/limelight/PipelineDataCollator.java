@@ -118,6 +118,13 @@ public class PipelineDataCollator {
 	 * @apiNote
 	 *          Array format [MT1x, MT1y, MT1z, MT1roll, MT1pitch, MT1Yaw, MT2x, MT2y, MT2z, MT2roll,
 	 *          MT2pitch, MT2yaw]
+	 * @apiNote
+	 *          This data shouldn't be used for pose estimation because it is calculated based off the
+	 *          poses from the last few seconds and, as a result, both lags behind a few seconds and
+	 *          is only really accurate when standing still for a few seconds. More information can be
+	 *          found in <a href=
+	 *          "https://github.com/LimelightVision/limelight-feedback/issues/30#issuecomment-2685398662">this
+	 *          issue</a>.
 	 */
 	private final DoubleArrayEntry standardDeviationsEntry;
 	/**
@@ -521,7 +528,8 @@ public class PipelineDataCollator {
 	 * @return
 	 *         Array containing standard deviations for vision measurements.
 	 * @apiNote
-	 *          Array format documented in the {@link #standardDeviationsEntry} Javadoc.
+	 *          Array format documented in the {@link #standardDeviationsEntry} Javadoc. Also, some
+	 *          details about where (not) to use this data can be found there.
 	 */
 	public double[] getStandardDeviationsArray() {
 		return standardDeviationsEntry.get();
