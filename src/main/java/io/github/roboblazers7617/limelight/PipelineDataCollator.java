@@ -147,7 +147,8 @@ public class PipelineDataCollator {
 	 * The hardware metrics from the Limelight.
 	 *
 	 * @apiNote
-	 *          Array format is [FPS, CPU temp, RAM usage, temp].
+	 *          Array format is [CPU temperature (Celcius), CPU usage (percentage), RAM usage
+	 *          (percentage), FPS].
 	 */
 	private final DoubleArrayEntry hardwareMetricsEntry;
 
@@ -599,22 +600,22 @@ public class PipelineDataCollator {
 	}
 
 	/**
-	 * Gets the FPS from the {@link #hardwareMetricsEntry}.
+	 * Gets the CPU temperature from the {@link #hardwareMetricsEntry}.
 	 *
 	 * @return
-	 *         Current pipeline FPS.
+	 *         Current CPU temperature (Celcius).
 	 */
-	public double getFps() {
+	public double getCpuTemperature() {
 		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 0);
 	}
 
 	/**
-	 * Gets the CPU temperature from the {@link #hardwareMetricsEntry}.
+	 * Gets the CPU usage from the {@link #hardwareMetricsEntry}.
 	 *
 	 * @return
-	 *         Current CPU temperature.
+	 *         Current CPU usage (percentage).
 	 */
-	public double getCpuTemperature() {
+	public double getCpuUsage() {
 		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 1);
 	}
 
@@ -622,19 +623,19 @@ public class PipelineDataCollator {
 	 * Gets the RAM usage from the {@link #hardwareMetricsEntry}.
 	 *
 	 * @return
-	 *         Current RAM usage.
+	 *         Current RAM usage (percentage).
 	 */
 	public double getRamUsage() {
 		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 2);
 	}
 
 	/**
-	 * Gets the temperature from the {@link #hardwareMetricsEntry}.
+	 * Gets the FPS from the {@link #hardwareMetricsEntry}.
 	 *
 	 * @return
-	 *         Current temperature.
+	 *         Current pipeline FPS.
 	 */
-	public double getTemperature() {
+	public double getFps() {
 		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 3);
 	}
 }
