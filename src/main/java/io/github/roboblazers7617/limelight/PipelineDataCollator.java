@@ -26,7 +26,7 @@ public class PipelineDataCollator {
 	/**
 	 * Object mapper used to parse JSON data from the Limelight.
 	 */
-	private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	private static final ObjectMapper mapper = new ObjectMapper();
 
 	/**
 	 * Raw detections entry for the Limelight.
@@ -159,6 +159,9 @@ public class PipelineDataCollator {
 	 */
 	public PipelineDataCollator(Limelight limelight) {
 		networkTable = limelight.getNetworkTable();
+
+		// Configure the ObjectMapper to not fail on unknown properties.
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 		rawDetectionsEntry = networkTable.getEntry("rawdetections");
 		rawFiducialsEntry = networkTable.getEntry("rawfiducials");
