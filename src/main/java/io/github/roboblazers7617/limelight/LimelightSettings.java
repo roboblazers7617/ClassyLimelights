@@ -338,7 +338,7 @@ public class LimelightSettings {
 	 */
 	public enum LEDMode {
 		/**
-		 * Pipeline mode.
+		 * Use the LED mode set in the current pipeline.
 		 */
 		PipelineControl(0),
 		/**
@@ -381,7 +381,8 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Stream mode for the {@link Limelight}
+	 * Stream mode for the {@link Limelight}. These determine what the camera stream should look like
+	 * when connecting a webcam to the Limelight.
 	 */
 	public enum StreamMode {
 		/**
@@ -389,11 +390,11 @@ public class LimelightSettings {
 		 */
 		Standard(0),
 		/**
-		 * Picture in picture, with secondary in corner.
+		 * Picture in picture, with secondary camera in the lower-right corner.
 		 */
 		PictureInPictureMain(1),
 		/**
-		 * Picture in picture, with main in corner.
+		 * Picture in picture, with main camera in the lower-right corner.
 		 */
 		PictureInPictureSecondary(2);
 
@@ -424,7 +425,7 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * Downscaling Override Enum for {@link Limelight}
+	 * Downscaling override for the {@link Limelight}.
 	 */
 	public enum DownscalingOverride {
 		/**
@@ -479,7 +480,7 @@ public class LimelightSettings {
 	}
 
 	/**
-	 * IMU Mode Enum for the {@link Limelight}
+	 * IMU mode for the {@link Limelight}
 	 */
 	public enum ImuMode {
 		/**
