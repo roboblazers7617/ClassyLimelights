@@ -143,6 +143,13 @@ public class PipelineDataCollator {
 	 * The raw data from all detected barcodes.
 	 */
 	private final StringArrayEntry rawBarcodesEntry;
+	/**
+	 * The hardware metrics from the Limelight.
+	 *
+	 * @apiNote
+	 *          Array format is [FPS, CPU temp, RAM usage, temp].
+	 */
+	private final DoubleArrayEntry hardwareMetricsEntry;
 
 	/**
 	 * Creates a new PipelineDataCollator.
@@ -179,6 +186,7 @@ public class PipelineDataCollator {
 		tagIdEntry = networkTable.getIntegerTopic("tid").getEntry(0);
 		targetClassEntry = networkTable.getStringTopic("tclass").getEntry("");
 		rawBarcodesEntry = networkTable.getStringArrayTopic("rawbarcodes").getEntry(new String[0]);
+		hardwareMetricsEntry = networkTable.getDoubleArrayTopic("hw").getEntry(new double[0]);
 	}
 
 	/**
@@ -573,5 +581,57 @@ public class PipelineDataCollator {
 	 */
 	public String[] getRawBarcodeData() {
 		return rawBarcodesEntry.get();
+	}
+
+	/**
+	 * Gets the raw hardware metrics array.
+	 *
+	 * @return
+	 *         Double array containing hardware metrics.
+	 * @apiNote
+	 *          Array format documented under {@link #hardwareMetricsEntry}.
+	 */
+	public double[] getHardwareMetrics() {
+		return hardwareMetricsEntry.get();
+	}
+
+	/**
+	 * Gets the FPS from the {@link #hardwareMetricsEntry}.
+	 *
+	 * @return
+	 *         Current pipeline FPS.
+	 */
+	public double getFps() {
+		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 0);
+	}
+
+	/**
+	 * Gets the CPU temperature from the {@link #hardwareMetricsEntry}.
+	 *
+	 * @return
+	 *         Current CPU temperature.
+	 */
+	public double getCpuTemperature() {
+		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 1);
+	}
+
+	/**
+	 * Gets the RAM usage from the {@link #hardwareMetricsEntry}.
+	 *
+	 * @return
+	 *         Current RAM usage.
+	 */
+	public double getRamUsage() {
+		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 2);
+	}
+
+	/**
+	 * Gets the temperature from the {@link #hardwareMetricsEntry}.
+	 *
+	 * @return
+	 *         Current temperature.
+	 */
+	public double getTemperature() {
+		return JsonUtilities.extractArrayEntry(getHardwareMetrics(), 3);
 	}
 }
