@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build-java:
-    uses: CoffeeCoder1/VendorTools/.github/workflows/build-java.yml@2025.1.1
+    uses: CoffeeCoder1/VendorTools/.github/workflows/build-java.yml@2025.1.2
 
   update-maven:
     needs: [build-java]
@@ -24,7 +24,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Trigger update
-        uses: CoffeeCoder1/VendorTools/.github/actions/trigger-maven-update@2025.1.1
+        uses: CoffeeCoder1/VendorTools/.github/actions/trigger-maven-update@2025.1.2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           repository-name: ${{ github.repository_owner }}/maven-repo

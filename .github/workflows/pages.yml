@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 jobs:
   build-javadoc:
-    uses: CoffeeCoder1/VendorTools/.github/workflows/build-javadoc.yml@2025.1.1
+    uses: CoffeeCoder1/VendorTools/.github/workflows/build-javadoc.yml@2025.1.2
 
   build-json:
-    uses: CoffeeCoder1/VendorTools/.github/workflows/build-json.yml@2025.1.1
+    uses: CoffeeCoder1/VendorTools/.github/workflows/build-json.yml@2025.1.2
 
   combine:
     needs: [build-javadoc, build-json]
