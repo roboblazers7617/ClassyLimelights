@@ -299,8 +299,10 @@ public class LimelightSettings {
 	 * @return
 	 *         This object for method chaining.
 	 */
-	public LimelightSettings withAprilTagIdFilter(List<Double> idFilter) {
-		fiducialIDFiltersOverride.set(idFilter.stream().mapToDouble(Double::doubleValue).toArray());
+	public LimelightSettings withAprilTagIdFilter(List<Integer> idFilter) {
+		fiducialIDFiltersOverride.set(idFilter.stream()
+				.mapToDouble(Integer::doubleValue)
+				.toArray());
 		return this;
 	}
 
